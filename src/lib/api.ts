@@ -18,9 +18,11 @@ async function getAuthHeader(): Promise<Record<string, string>> {
   }
 }
 
+const API_BASE = (import.meta as any).env?.VITE_API_URL ?? '';
+
 export async function apiFetch(path: string, init: RequestInit = {}): Promise<Response> {
   const authHeader = await getAuthHeader();
-  return fetch(path, {
+  return fetch(`${API_BASE}${path}`, {
     ...init,
     credentials: 'include',
     headers: {
