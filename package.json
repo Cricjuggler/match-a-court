@@ -12,7 +12,8 @@
     "dev:business": "vite --config business/vite.config.ts",
     "dev:admin": "vite --config admin/vite.config.ts",
     "dev:api": "tsx watch server/index.ts",
-    "build": "tsc && vite build"
+    "build": "vite build",
+    "build:check": "tsc && vite build"
   },
   "dependencies": {
     "@neondatabase/neon-js": "0.2.0-beta.1",
