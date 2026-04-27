@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd .. && npm run build:business",
+  "outputDirectory": "dist",
+  "framework": "vite"
+}

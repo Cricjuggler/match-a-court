@@ -14,13 +14,15 @@ const app = express();
 app.use(express.json());
 const ALLOWED_ORIGINS = [
   'https://match-a-court.vercel.app',
+  'https://match-a-court-business.vercel.app',
+  'https://match-a-court-admin.vercel.app',
   'http://localhost:5173',
   'http://localhost:5174',
   'http://localhost:5175',
 ];
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin || ALLOWED_ORIGINS.includes(origin)) cb(null, true);
+    if (!origin || ALLOWED_ORIGINS.includes(origin) || origin.endsWith('.vercel.app')) cb(null, true);
     else cb(new Error('Not allowed by CORS'));
   },
   credentials: true,

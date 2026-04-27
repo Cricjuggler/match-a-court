@@ -27,7 +27,8 @@ export async function apiFetch<T = unknown>(
     headers['Authorization'] = `Bearer ${token}`
   }
 
-  const res = await fetch(path, { ...options, headers })
+  const API_BASE = (import.meta as any).env?.VITE_API_URL ?? '';
+  const res = await fetch(`${API_BASE}${path}`, { ...options, headers })
 
   if (!res.ok) {
     let message = `Request failed: ${res.status} ${res.statusText}`

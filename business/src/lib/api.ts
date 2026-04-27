@@ -32,7 +32,8 @@ export async function apiFetch<T = unknown>(
     delete headers['Content-Type']
   }
 
-  const res = await fetch(path, {
+  const API_BASE = (import.meta as any).env?.VITE_API_URL ?? '';
+  const res = await fetch(`${API_BASE}${path}`, {
     ...options,
     headers,
   })

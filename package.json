@@ -13,6 +13,9 @@
     "dev:admin": "vite --config admin/vite.config.ts",
     "dev:api": "tsx watch server/index.ts",
     "build": "vite build",
+    "build:player": "vite build",
+    "build:business": "vite build --config business/vite.config.ts --outDir business/dist",
+    "build:admin": "vite build --config admin/vite.config.ts --outDir admin/dist",
     "build:check": "tsc && vite build"
   },
   "dependencies": {

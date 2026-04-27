@@ -106,7 +106,15 @@
       "Bash(gh --version)",
       "Bash(git init *)",
       "Bash(git config *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(echo \".claude/\")",
+      "Bash(git commit -m ' *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "Bash(node -e \"const lock = JSON.parse\\(require\\('fs'\\).readFileSync\\('package-lock.json','utf8'\\)\\); const pg = lock.packages['node_modules/pg']; console.log\\('pg in lock:', pg?.version ?? 'MISSING'\\)\")"
     ]
   }
 }
