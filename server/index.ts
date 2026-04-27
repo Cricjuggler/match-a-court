@@ -12,7 +12,19 @@ import { uploadRouter } from './upload';
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
+const ALLOWED_ORIGINS = [
+  'https://match-a-court.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+];
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) cb(null, true);
+    else cb(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+}));
 
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
