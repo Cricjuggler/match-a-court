@@ -1,0 +1,505 @@
+/*
+  Match-A-Court — Brand Palette (from Canva logo)
+  ─────────────────────────────────────────────────
+  Forest green   #2d7a3d   logo background
+  Bright green   #4ecb71   MATCH-A-COURT wordmark
+  Sage green     #8ab88a   icon mark / subtitle
+  Matte grey     #3a3f4a   neutral contrast
+*/
+
+:root {
+  --bg:           #0c1510;
+  --surface:      #131f16;
+  --surface-2:    #1a2b1e;
+  --surface-3:    #223328;
+  --border:       #253c2a;
+  --border-focus: #2d7a3d;
+  --text:         #eaf2eb;
+  --muted:        #8ab88a;
+  --accent:       #4ecb71;
+  --accent-hover: #3ab85e;
+  --accent-dim:   #0e2318;
+  --forest:       #2d7a3d;
+  --forest-dark:  #1e5429;
+  --grey:         #3a3f4a;
+  --grey-light:   #555c6a;
+  --danger:       #e87070;
+  --danger-bg:    #2a1212;
+  --booked:       #1e2822;
+  --free:         #112018;
+  --free-hover:   #172d20;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0; padding: 0; min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--forest); border-radius: 3px; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.app {
+  max-width: 960px; margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+/* ── Top Nav ──────────────────────────────────────────────────── */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 20px; border-bottom: 1px solid var(--border);
+  margin-bottom: 28px; gap: 12px;
+}
+
+/* Logo */
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  color: inherit; text-decoration: none !important; flex-shrink: 0;
+}
+.logo-img {
+  width: 42px; height: 42px;
+  border-radius: 10px; object-fit: cover; flex-shrink: 0;
+  border: 1px solid var(--border-focus);
+}
+.logo-wordmark { display: flex; flex-direction: column; }
+.logo-top {
+  font-size: 15px; font-weight: 700; letter-spacing: -0.01em;
+  color: var(--text); line-height: 1.2;
+}
+.logo-bottom {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+  color: var(--muted); text-transform: uppercase;
+}
+
+/* Desktop nav links */
+.nav-desktop {
+  display: flex; gap: 16px; align-items: center;
+}
+.nav-desktop a {
+  color: var(--muted); font-size: 14px; font-weight: 500;
+  transition: color .15s;
+}
+.nav-desktop a:hover { color: var(--text); text-decoration: none; }
+.nav-desktop a.active { color: var(--accent); }
+.user-chip { font-size: 13px; }
+
+/* Mobile auth (top bar) */
+.nav-mobile-auth { display: none; }
+
+/* ── Bottom nav (mobile only) ─────────────────────────────────── */
+.bottom-nav { display: none; }
+
+/* ── Page headings ────────────────────────────────────────────── */
+h2 { font-size: 22px; margin: 0 0 4px; }
+.subtitle { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
+
+/* ── Grid / Cards ─────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px; transition: border-color .15s, box-shadow .15s;
+}
+.card:hover {
+  border-color: var(--forest);
+  box-shadow: 0 0 0 1px var(--forest), 0 4px 20px rgba(45,122,61,0.15);
+}
+.card h3 { margin: 0 0 4px; font-size: 16px; }
+.card .meta { color: var(--muted); font-size: 13px; }
+
+.court-card { padding: 0; overflow: hidden; }
+.court-photo { width: 100%; height: 160px; overflow: hidden; background: var(--border); }
+.court-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .2s; }
+.court-card:hover .court-photo img { transform: scale(1.04); }
+.court-info { padding: 14px 16px; }
+
+.court-hero {
+  width: 100%; height: 220px; overflow: hidden;
+  border-radius: 10px; margin-top: 10px; background: var(--border);
+}
+.court-hero img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.btn {
+  display: inline-block; background: var(--accent); color: #0a200f;
+  border: none; border-radius: 6px; padding: 9px 16px;
+  font-size: 14px; font-weight: 700; cursor: pointer; transition: background .15s;
+}
+.btn:hover { background: var(--accent-hover); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn.ghost {
+  background: transparent; color: var(--muted); border: 1px solid var(--border);
+}
+.btn.ghost:hover { background: var(--surface-2); color: var(--text); border-color: var(--border-focus); }
+.btn.danger { background: transparent; color: var(--danger); border: 1px solid var(--border); }
+.btn.danger:hover { background: var(--danger-bg); border-color: var(--danger); }
+
+/* ── Date bar ─────────────────────────────────────────────────── */
+.date-bar { display: flex; gap: 10px; align-items: center; margin: 16px 0 20px; flex-wrap: wrap; }
+.date-popover { position: relative; display: inline-block; }
+.date-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 12px;
+  font-size: 14px; color: var(--text); cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.date-chip:hover { border-color: var(--forest); background: var(--surface-2); }
+.date-chip strong { font-weight: 600; }
+.date-chip .chev { color: var(--muted); font-size: 11px; }
+.date-popover-panel {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 20;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+/* ── react-day-picker ─────────────────────────────────────────── */
+.rdp-root {
+  --rdp-accent-color: var(--accent);
+  --rdp-accent-background-color: var(--free);
+  --rdp-day-height: 36px;
+  --rdp-day-width: 36px;
+  --rdp-font-family: inherit;
+  color: var(--text); font-size: 13px;
+}
+.rdp-chevron { fill: var(--accent); }
+.rdp-day_button { border-radius: 6px; color: var(--text); }
+.rdp-day_button:hover { background: var(--surface-2) !important; }
+.rdp-selected .rdp-day_button { background: var(--accent) !important; color: #0a200f; font-weight: 700; }
+.rdp-today:not(.rdp-selected) .rdp-day_button { color: var(--accent); font-weight: 600; }
+.rdp-disabled { opacity: 0.25; }
+.rdp-month_caption { color: var(--text); }
+.rdp-weekday { color: var(--muted); }
+
+/* ── Slot grid ────────────────────────────────────────────────── */
+.slot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 8px; }
+.slot {
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 4px; text-align: center; font-size: 13px;
+  cursor: pointer; background: var(--free); color: var(--text);
+  transition: background .12s, border-color .12s;
+}
+.slot:hover:not(:disabled) { background: var(--free-hover); border-color: var(--forest); }
+.slot.booked { background: var(--booked); color: var(--muted); cursor: not-allowed; text-decoration: line-through; }
+.slot.selected { background: var(--accent); color: #0a200f; border-color: var(--accent); font-weight: 700; }
+
+/* ── Form ─────────────────────────────────────────────────────── */
+.form {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px; margin-top: 24px; max-width: 100%;
+}
+
+/* ── Booking rows ─────────────────────────────────────────────── */
+.booking-row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;
+  transition: border-color .15s;
+}
+.booking-row:hover { border-color: var(--border-focus); }
+.booking-row .info { font-size: 14px; flex: 1; }
+.booking-row .info .court { font-weight: 600; }
+.booking-row .info .when { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+.empty { text-align: center; color: var(--muted); padding: 40px 0; font-size: 14px; }
+
+/* ── Legend ───────────────────────────────────────────────────── */
+.legend { display: flex; gap: 12px; font-size: 12px; color: var(--muted); margin-bottom: 12px; flex-wrap: wrap; }
+.legend .dot {
+  display: inline-block; width: 10px; height: 10px;
+  border-radius: 3px; margin-right: 5px; vertical-align: middle;
+}
+
+/* ── Sign-in gate ─────────────────────────────────────────────── */
+.signin-gate {
+  background: var(--surface); border: 1px dashed var(--border);
+  border-radius: 10px; padding: 24px; text-align: center; margin-top: 20px;
+}
+.signin-gate p { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+
+/* ── Need Players toggle ──────────────────────────────────────── */
+.need-players-toggle { display: flex; gap: 8px; margin-bottom: 14px; }
+.toggle-opt {
+  flex: 1; padding: 10px 8px; border: 1.5px solid var(--border);
+  border-radius: 8px; font-size: 13px; font-weight: 500;
+  cursor: pointer; background: var(--surface-2); color: var(--muted);
+  transition: all .15s;
+}
+.toggle-opt.active { border-color: var(--forest); background: var(--free); color: var(--accent); }
+
+.slots-picker {
+  background: var(--bg); border-radius: 8px; padding: 12px;
+  margin-bottom: 4px; border: 1px solid var(--border);
+}
+.slots-options { display: flex; gap: 8px; }
+.slot-count-btn {
+  flex: 1; padding: 10px 8px; border: 1.5px solid var(--border);
+  border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; background: var(--surface); color: var(--text);
+  transition: all .15s;
+}
+.slot-count-btn.active { border-color: var(--accent); background: var(--accent); color: #0a200f; }
+
+/* ── Swipe card stack ─────────────────────────────────────────── */
+.swipe-stack {
+  position: relative; height: 500px;
+  max-width: 400px; margin: 0 auto 16px; user-select: none;
+}
+.swipe-card {
+  position: absolute; inset: 0;
+  background: var(--surface); border-radius: 18px; overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  touch-action: none; will-change: transform;
+  border: 1px solid var(--border);
+}
+.swipe-photo { position: relative; height: 240px; overflow: hidden; background: var(--booked); }
+.swipe-photo img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.swipe-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; font-weight: 900; letter-spacing: 2px; pointer-events: none;
+}
+.swipe-overlay.join {
+  background: rgba(46,122,61,0.4); color: var(--accent);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4); border: 4px solid var(--accent);
+}
+.swipe-overlay.skip {
+  background: rgba(232,112,112,0.35); color: var(--danger);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4); border: 4px solid var(--danger);
+}
+.swipe-overlay span { transform: rotate(-12deg); display: block; }
+.swipe-spots-badge {
+  position: absolute; bottom: 10px; right: 10px;
+  background: rgba(13,21,16,0.82); color: var(--accent);
+  font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+  backdrop-filter: blur(6px); border: 1px solid var(--border-focus);
+}
+.swipe-info { padding: 14px 16px; }
+.swipe-court-name { font-size: 17px; font-weight: 700; margin-bottom: 2px; color: var(--text); }
+.swipe-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.swipe-datetime { display: flex; gap: 12px; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+.swipe-date, .swipe-time { display: flex; align-items: center; gap: 4px; }
+.swipe-host { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+/* ── Slideshow dots ───────────────────────────────────────────── */
+.slideshow-dots {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 5px; z-index: 2; pointer-events: all;
+}
+.slideshow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  border: none; padding: 0; cursor: pointer;
+  background: rgba(255,255,255,0.45);
+  transition: background .2s, transform .2s;
+}
+.slideshow-dot.active { background: white; transform: scale(1.4); }
+
+/* ── Player slots (segmented bar) ─────────────────────────────── */
+.player-slots { display: flex; align-items: center; gap: 5px; }
+.player-slot {
+  width: 28px; height: 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.slot-host   { background: var(--forest); }
+.slot-joined { background: var(--accent); }
+.slot-empty  { background: var(--surface-3); border: 1px solid var(--border-focus); opacity: 0.5; }
+.slot-label  { font-size: 12px; color: var(--muted); margin-left: 6px; }
+
+/* ── Swipe action buttons ─────────────────────────────────────── */
+.swipe-actions {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  max-width: 400px; margin: 0 auto 24px;
+}
+.swipe-btn {
+  width: 58px; height: 58px; border-radius: 50%;
+  font-size: 24px; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+}
+.swipe-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,0,0.6); }
+.swipe-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.skip-btn { background: var(--surface-2); color: var(--danger); border: 1px solid var(--border); }
+.join-btn { background: var(--accent); color: #0a200f; }
+.swipe-hint { font-size: 12px; color: var(--muted); }
+
+/* ── Swipe empty state ────────────────────────────────────────── */
+.swipe-empty { text-align: center; padding: 60px 20px; max-width: 400px; margin: 0 auto; }
+.swipe-empty-icon { font-size: 56px; margin-bottom: 12px; }
+.swipe-empty h3 { font-size: 20px; margin: 0 0 8px; }
+.swipe-empty p { color: var(--muted); font-size: 14px; margin: 0; }
+
+/* ── Toast ────────────────────────────────────────────────────── */
+.swipe-toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  padding: 12px 22px; border-radius: 30px; font-size: 14px; font-weight: 600;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.6); z-index: 200; white-space: nowrap;
+  animation: toast-in .25s ease;
+}
+.swipe-toast.success { background: var(--forest); color: var(--accent); border: 1px solid var(--accent); }
+.swipe-toast.error   { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger); }
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Notification bell (nav) ──────────────────────────────────── */
+.notif-bell {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px; line-height: 1;
+  color: var(--muted); text-decoration: none !important;
+  padding: 2px 4px;
+  transition: color .15s;
+}
+.notif-bell:hover { color: var(--text); }
+.notif-bell.active { color: var(--accent); }
+
+.notif-badge {
+  position: absolute; top: -4px; right: -6px;
+  background: var(--danger); color: #fff;
+  font-size: 10px; font-weight: 700; line-height: 1;
+  min-width: 16px; height: 16px;
+  border-radius: 8px; padding: 0 4px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--bg);
+}
+
+/* Badge on bottom-nav bell icon */
+.bnav-badge {
+  position: absolute; top: -4px; right: -6px;
+  background: var(--danger); color: #fff;
+  font-size: 9px; font-weight: 700; line-height: 1;
+  min-width: 15px; height: 15px;
+  border-radius: 8px; padding: 0 3px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--surface);
+}
+
+/* ── Notification rows ────────────────────────────────────────── */
+.notif-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+  cursor: default; transition: border-color .15s;
+}
+.notif-row.unread {
+  border-color: var(--border-focus);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+.notif-row.unread:hover { border-color: var(--forest); background: var(--surface-3); }
+
+.notif-icon {
+  font-size: 24px; line-height: 1;
+  flex-shrink: 0; padding-top: 2px;
+}
+.notif-body { flex: 1; min-width: 0; }
+.notif-title {
+  font-size: 14px; font-weight: 600; color: var(--text);
+  margin-bottom: 3px; line-height: 1.3;
+}
+.notif-text {
+  font-size: 13px; color: var(--muted); line-height: 1.4;
+  margin-bottom: 5px;
+}
+.notif-time {
+  font-size: 11px; color: var(--grey-light);
+  letter-spacing: 0.02em;
+}
+.notif-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0;
+  margin-top: 6px; box-shadow: 0 0 6px var(--accent);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE  (≤ 640px)
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* App wrapper — extra bottom padding for bottom nav */
+  .app { padding: 16px 14px 90px; }
+
+  /* ── Top nav: logo + auth only ── */
+  .nav { padding-bottom: 14px; margin-bottom: 18px; }
+  .nav-desktop { display: none; }
+  .nav-mobile-auth { display: flex; }
+  .logo-wordmark { display: none; }   /* just the logo image on mobile */
+  .logo-img { width: 38px; height: 38px; }
+
+  /* ── Bottom nav ── */
+  .bottom-nav {
+    display: flex;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 8px 0 env(safe-area-inset-bottom, 10px);
+  }
+  .bnav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 3px;
+    color: var(--muted); text-decoration: none !important;
+    font-size: 10px; font-weight: 500;
+    padding: 4px 0; transition: color .15s;
+  }
+  .bnav-item.active { color: var(--accent); }
+  .bnav-icon { font-size: 22px; line-height: 1; position: relative; display: inline-block; }
+  .bnav-label { letter-spacing: 0.02em; }
+
+  /* ── Headings ── */
+  h2 { font-size: 20px; }
+
+  /* ── Court grid: single column ── */
+  .grid { grid-template-columns: 1fr; gap: 10px; }
+  .court-photo { height: 180px; }
+
+  /* ── Court hero ── */
+  .court-hero { height: 180px; }
+
+  /* ── Slot grid: more columns on small screen ── */
+  .slot-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+  .slot { padding: 8px 4px; font-size: 12px; }
+
+  /* ── Date bar ── */
+  .date-chip { font-size: 13px; padding: 7px 10px; }
+
+  /* ── Booking rows: stack button below ── */
+  .booking-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .booking-row .info { width: 100%; }
+  .booking-row > .btn,
+  .booking-row > button { align-self: flex-end; }
+
+  /* ── Swipe stack: full width, shorter ── */
+  .swipe-stack { height: 460px; max-width: 100%; }
+  .swipe-photo { height: 210px; }
+  .swipe-info { padding: 12px 14px; }
+  .swipe-court-name { font-size: 16px; }
+
+  /* ── Swipe action buttons ── */
+  .swipe-actions { gap: 16px; margin-bottom: 16px; }
+  .swipe-btn { width: 52px; height: 52px; font-size: 22px; }
+
+  /* ── Need players toggles ── */
+  .toggle-opt { padding: 9px 6px; font-size: 12px; }
+  .slot-count-btn { padding: 9px 6px; font-size: 12px; }
+
+  /* ── Form ── */
+  .form { padding: 16px; }
+
+  /* ── Toast: above bottom nav ── */
+  .swipe-toast { bottom: 74px; }
+
+  /* ── Date picker popover: don't overflow ── */
+  .date-popover-panel { left: 50%; transform: translateX(-50%); }
+}

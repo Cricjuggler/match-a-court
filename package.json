@@ -1,0 +1,43 @@
+{
+  "name": "court-book",
+  "private": true,
+  "version": "0.3.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n player,biz,admin,api -c cyan,blue,magenta,yellow \"npm:dev:player\" \"npm:dev:business\" \"npm:dev:admin\" \"npm:dev:api\"",
+    "dev:player": "vite",
+    "dev:business": "vite --config business/vite.config.ts",
+    "dev:admin": "vite --config admin/vite.config.ts",
+    "dev:api": "tsx watch server/index.ts",
+    "build": "tsc && vite build"
+  },
+  "dependencies": {
+    "@neondatabase/neon-js": "0.2.0-beta.1",
+    "@neondatabase/serverless": "^0.10.4",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jose": "^5.9.6",
+    "multer": "^2.1.1",
+    "react": "^18.3.1",
+    "react-day-picker": "^9.14.0",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/multer": "^2.1.0",
+    "@types/node": "^22.10.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "concurrently": "^9.1.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
