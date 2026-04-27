@@ -5,7 +5,6 @@ export function AuthPage() {
   const { pathname } = useParams<{ pathname: string }>();
   return (
     <div style={{ maxWidth: 420, margin: '20px auto' }}>
-      {/* @ts-expect-error path prop is a string union in the SDK */}
       <AuthView path={pathname} />
     </div>
   );
