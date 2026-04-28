@@ -60,6 +60,9 @@ export function CourtDetail() {
   const [error, setError] = useState<string | null>(null);
   const [needPlayers, setNeedPlayers] = useState(false);
   const [slotsNeeded, setSlotsNeeded] = useState<1 | 2 | 3>(1);
+  const [openGames, setOpenGames] = useState<any[]>([]);
+  const [showMatches, setShowMatches] = useState(false);
+  const [joiningId, setJoiningId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -68,6 +71,29 @@ export function CourtDetail() {
       else if (r.ok) setCourt(await r.json());
     });
   }, [id]);
+
+  useEffect(() => {
+    if (!id || !user) return;
+    apiFetch(`/api/group-bookings?courtId=${id}`).then(async (r) => {
+      if (r.ok) setOpenGames(await r.json());
+    });
+  }, [id, user]);
+
+  async function handleJoinGame(gameId: string) {
+    setJoiningId(gameId);
+    try {
+      const r = await apiFetch(`/api/group-bookings/${gameId}/join`, {
+        method: 'POST',
+        body: JSON.stringify({ userName: user?.name ?? user?.email ?? 'Player' }),
+      });
+      if (r.ok) {
+        setOpenGames(prev => prev.filter(g => g.id !== gameId));
+        navigate('/my-bookings');
+      }
+    } finally {
+      setJoiningId(null);
+    }
+  }
 
   async function refreshBooked(d = date) {
     if (!id) return;
@@ -87,9 +113,11 @@ export function CourtDetail() {
   const hours = useMemo(() => {
     if (!court) return [];
     const out: number[] = [];
-    for (let h = court.openHour; h < court.closeHour; h++) out.push(h);
+    for (let h = court.openHour; h < court.closeHour; h++) {
+      if (!bookedHours.has(h)) out.push(h);
+    }
     return out;
-  }, [court]);
+  }, [court, bookedHours]);
 
   if (notFound) {
     return <div className="empty">Court not found. <Link to="/">Back to courts</Link></div>;
@@ -176,31 +204,76 @@ export function CourtDetail() {
         </div>
       </div>
 
-      <div className="legend">
-        <span><span className="dot" style={{ background: 'var(--free)' }} /> Available</span>
-        <span><span className="dot" style={{ background: 'var(--booked)' }} /> Booked</span>
-        <span><span className="dot" style={{ background: 'var(--accent)' }} /> Selected</span>
-      </div>
+      {/* Find Players at this Court button */}
+      {user && openGames.length > 0 && !showMatches && (
+        <button
+          className="btn"
+          style={{ width: '100%', marginBottom: 16, padding: '12px' }}
+          onClick={() => setShowMatches(true)}
+        >
+          🤝 {openGames.length} player{openGames.length > 1 ? 's' : ''} looking for matches at this court
+        </button>
+      )}
 
-      <div className="slot-grid">
-        {hours.map((h) => {
-          const booked = bookedHours.has(h);
-          const isSelected = selected === h;
-          const cls = ['slot'];
-          if (booked) cls.push('booked');
-          if (isSelected) cls.push('selected');
-          return (
-            <button
-              key={h}
-              className={cls.join(' ')}
-              disabled={booked}
-              onClick={() => setSelected(h)}
-            >
-              {String(h).padStart(2, '0')}:00
+      {/* Open games at this court */}
+      {showMatches && openGames.length > 0 && (
+        <div style={{ marginBottom: 20 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+            <h3 style={{ margin: 0, fontSize: 16 }}>🤝 Players looking for matches</h3>
+            <button className="btn ghost" style={{ fontSize: 12, padding: '4px 10px' }} onClick={() => setShowMatches(false)}>
+              Hide
             </button>
-          );
-        })}
-      </div>
+          </div>
+          {openGames.map((g: any) => (
+            <div key={g.id} className="booking-row" style={{ marginBottom: 8 }}>
+              <div className="info">
+                <div className="court">{g.hostName}'s game · {g.spotsLeft} spot{g.spotsLeft > 1 ? 's' : ''} left</div>
+                <div className="when">
+                  📅 {new Date(g.date + 'T00:00').toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
+                  {' '}· 🕐 {String(g.startHour).padStart(2, '0')}:00
+                </div>
+              </div>
+              <button
+                className="btn"
+                disabled={joiningId === g.id}
+                onClick={() => handleJoinGame(g.id)}
+              >
+                {joiningId === g.id ? 'Joining…' : 'Join'}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {hours.length > 0 ? (
+        <>
+          <div className="legend">
+            <span><span className="dot" style={{ background: 'var(--free)' }} /> Available</span>
+            <span><span className="dot" style={{ background: 'var(--accent)' }} /> Selected</span>
+          </div>
+
+          <div className="slot-grid">
+            {hours.map((h) => {
+              const isSelected = selected === h;
+              return (
+                <button
+                  key={h}
+                  className={`slot${isSelected ? ' selected' : ''}`}
+                  onClick={() => setSelected(h)}
+                >
+                  {String(h).padStart(2, '0')}:00
+                </button>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <div className="empty" style={{ padding: '24px 0' }}>
+          <div style={{ fontSize: 32, marginBottom: 8 }}>🏸</div>
+          <div>All slots booked for this date</div>
+          <div style={{ fontSize: 12, marginTop: 4 }}>Try another date or join a game above</div>
+        </div>
+      )}
 
       {selected != null && (
         <>

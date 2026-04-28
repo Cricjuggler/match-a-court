@@ -60,6 +60,7 @@ groupBookingsRouter.post('/api/group-bookings', requireAuth, async (req, res) =>
 
 groupBookingsRouter.get('/api/group-bookings', requireAuth, async (req, res) => {
   const userId = req.userId!;
+  const courtId = req.query.courtId ? String(req.query.courtId) : null;
   try {
     const rows = await sql`
       SELECT
@@ -86,6 +87,7 @@ groupBookingsRouter.get('/api/group-bookings', requireAuth, async (req, res) => 
           WHERE gp.group_booking_id = gb.id AND gp.user_id = ${userId}
         )
         AND (SELECT COUNT(*) FROM group_participants gp WHERE gp.group_booking_id = gb.id) < gb.slots_needed
+        AND (${courtId}::text IS NULL OR gb.court_id = ${courtId}::uuid)
       ORDER BY gb.date ASC, gb.start_hour ASC
     `;
 
